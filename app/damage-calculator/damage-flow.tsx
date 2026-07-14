@@ -53,8 +53,8 @@ export function DamageFlow({
     stats.shieldBreak >= stats.qiShield
       ? "ทำลายโล่ถึงค่าโล่พลังชี่ จึงเหลือ 0"
       : stats.shieldBreak * 3 >= stats.qiShield
-        ? "ทำลายโล่เข้าเงื่อนไขกลาง จึงคิดโล่พลังชี่หลังหักครึ่งหนึ่ง"
-        : "ทำลายโล่น้อย จึงหักโล่แบบ 2 เท่า";
+        ? "ทำลายโล่ปานกลาง"
+        : "ทำลายโล่น้อย";
 
   return (
     <section>
