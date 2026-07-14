@@ -825,17 +825,19 @@ export function OcrImportPanel({
       return;
     }
 
+    const currentImage = viewingImage;
+
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setViewingImage(null);
       } else if (event.key === "ArrowRight") {
-        const index = previews.findIndex((p) => p.id === viewingImage.id);
+        const index = previews.findIndex((p) => p.id === currentImage.id);
         if (index !== -1) {
           const nextIndex = (index + 1) % previews.length;
           setViewingImage(previews[nextIndex]);
         }
       } else if (event.key === "ArrowLeft") {
-        const index = previews.findIndex((p) => p.id === viewingImage.id);
+        const index = previews.findIndex((p) => p.id === currentImage.id);
         if (index !== -1) {
           const prevIndex = (index - 1 + previews.length) % previews.length;
           setViewingImage(previews[prevIndex]);
