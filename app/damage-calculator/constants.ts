@@ -65,3 +65,31 @@ export const defenderFields: Field[] = [
   { key: "dmgReduction", label: "ลดดาเมจ / DMG Reduction", hint: "ลดดาเมจแบบบวกเพิ่ม / Additive reduction", suffix: "%" },
   { key: "skillDmgReduction", label: "ลดดาเมจจากสกิล / Skill DMG Reduction", hint: "ลดดาเมจสกิลแบบบวกเพิ่ม / Additive skill reduction", suffix: "%" },
 ];
+
+export const defenderPresets = {
+  dps: {
+    hp: 100000,
+    defense: 3986,
+    qiShield: 1340,
+    classDefense: 120,
+    classDefensePct: 8.0,
+    elementalResist: 34,
+    critResist: 452,
+    block: 706,
+    dmgReduction: -3,
+    skillDmgReduction: 2.5,
+  },
+  tank: {
+    hp: 150000,
+    defense: 5500,
+    qiShield: 3000,
+    classDefense: 350,
+    classDefensePct: 15.0,
+    elementalResist: 150,
+    critResist: 650,
+    block: 1500,
+    dmgReduction: -3,
+    skillDmgReduction: 2.5,
+  },
+};
+

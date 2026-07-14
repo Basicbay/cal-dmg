@@ -1,5 +1,7 @@
 import { useState } from "react";
 import type { Field, Stats } from "./types";
+import { defenderPresets } from "./constants";
+
 
 function NumberInput({
   field,
@@ -106,12 +108,14 @@ export function InputPanel({
   fields,
   stats,
   onChange,
+  onApplyStats,
 }: {
   tone: "attacker" | "defender";
   title: string;
   fields: Field[];
   stats: Stats;
   onChange: (key: keyof Stats, value: number) => void;
+  onApplyStats?: (updates: Partial<Stats>) => void;
 }) {
   const theme =
     tone === "attacker"
@@ -127,9 +131,28 @@ export function InputPanel({
   return (
     <section className={`h-full overflow-hidden rounded-lg border ${theme.panel}`}>
       <h2
-        className={`border-b px-4 py-4 text-sm font-black uppercase tracking-[0.02em] ${theme.header}`}
+        className={`flex flex-wrap items-center justify-between gap-2 border-b px-4 py-3 text-sm font-black uppercase tracking-[0.02em] ${theme.header}`}
       >
-        {title}
+        <span>{title}</span>
+        {tone === "defender" && onApplyStats && (
+          <div className="flex items-center gap-1.5 normal-case font-bold text-red-300/80">
+            <span className="text-[10px] tracking-wide">ตัวอย่าง / Presets:</span>
+            <button
+              type="button"
+              onClick={() => onApplyStats(defenderPresets.dps)}
+              className="rounded bg-red-500/20 px-2.5 py-1 text-xs font-black text-red-300 transition-all duration-200 hover:bg-red-500/40 hover:text-white active:scale-95 border border-red-500/30 cursor-pointer"
+            >
+              DPS
+            </button>
+            <button
+              type="button"
+              onClick={() => onApplyStats(defenderPresets.tank)}
+              className="rounded bg-red-500/20 px-2.5 py-1 text-xs font-black text-red-300 transition-all duration-200 hover:bg-red-500/40 hover:text-white active:scale-95 border border-red-500/30 cursor-pointer"
+            >
+              Tank
+            </button>
+          </div>
+        )}
       </h2>
       <div className="grid gap-4 p-4 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
         {fields.map((field) => (

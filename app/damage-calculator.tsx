@@ -20,10 +20,7 @@ export default function DamageCalculator() {
   const result = useMemo(() => calculate(stats), [stats]);
 
   function updateStat(key: keyof Stats, value: number) {
-    let finalValue = Number.isFinite(value) ? value : 0;
-    if ((key === "dmgReduction" || key === "skillDmgReduction") && finalValue < 0) {
-      finalValue = Math.abs(finalValue);
-    }
+    const finalValue = Number.isFinite(value) ? value : 0;
     setStats((current) => ({
       ...current,
       [key]: finalValue,
@@ -31,16 +28,9 @@ export default function DamageCalculator() {
   }
 
   function applyStats(updates: Partial<Stats>) {
-    const processedUpdates = { ...updates };
-    if (processedUpdates.dmgReduction !== undefined && processedUpdates.dmgReduction < 0) {
-      processedUpdates.dmgReduction = Math.abs(processedUpdates.dmgReduction);
-    }
-    if (processedUpdates.skillDmgReduction !== undefined && processedUpdates.skillDmgReduction < 0) {
-      processedUpdates.skillDmgReduction = Math.abs(processedUpdates.skillDmgReduction);
-    }
     setStats((current) => ({
       ...current,
-      ...processedUpdates,
+      ...updates,
     }));
   }
 
@@ -91,6 +81,7 @@ export default function DamageCalculator() {
             fields={defenderFields}
             stats={stats}
             onChange={updateStat}
+            onApplyStats={applyStats}
           />
         </div>
 
