@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "เครื่องคิดดาเมจ / Justice Online Damage Calculator",
-  description: "เครื่องคิดดาเมจสำหรับค่าสเตตัสต่อสู้ Justice Online / Damage calculator for Justice Online combat stats",
+  title: "Sword of Justice Test Damage",
+  description: "",
 };
 
 export default function RootLayout({

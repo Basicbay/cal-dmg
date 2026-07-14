@@ -928,7 +928,7 @@ export function OcrImportPanel({
       <div className="mb-3 flex items-center justify-between gap-3">
         <div>
           <h3 className="text-xs font-black uppercase tracking-[0.02em] text-slate-200">{title}</h3>
-          <p className="mt-1 text-[11px] font-medium text-slate-600">{message}</p>
+          {/* <p className="mt-1 text-[11px] font-medium text-slate-600">{message}</p> */}
         </div>
         <span className={`rounded border px-2 py-1 text-[10px] font-black ${theme.chip}`}>
           OCR

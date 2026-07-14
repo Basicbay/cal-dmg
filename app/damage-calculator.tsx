@@ -38,10 +38,10 @@ export default function DamageCalculator() {
       <header className="sticky top-0 z-10 flex min-h-16 items-center justify-between gap-4 border-b border-white/7 bg-[#111116]/95 px-4 py-3 backdrop-blur sm:px-7">
         <div>
           <h1 className="text-base font-black uppercase tracking-[0.02em] text-slate-100">
-            เครื่องคิดดาเมจ / Damage Calculator 2
+            Sword of Justice Test 
           </h1>
           <p className="text-[11px] font-semibold text-slate-600">
-            สูตรอ้างอิงจากภาพ / Reference formula model
+            Reference formula model
           </p>
         </div>
         <div className="flex flex-wrap justify-end gap-2">
