@@ -828,12 +828,24 @@ export function OcrImportPanel({
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setViewingImage(null);
+      } else if (event.key === "ArrowRight") {
+        const index = previews.findIndex((p) => p.id === viewingImage.id);
+        if (index !== -1) {
+          const nextIndex = (index + 1) % previews.length;
+          setViewingImage(previews[nextIndex]);
+        }
+      } else if (event.key === "ArrowLeft") {
+        const index = previews.findIndex((p) => p.id === viewingImage.id);
+        if (index !== -1) {
+          const prevIndex = (index - 1 + previews.length) % previews.length;
+          setViewingImage(previews[prevIndex]);
+        }
       }
     }
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [viewingImage]);
+  }, [viewingImage, previews]);
 
   function removePreview(id: string) {
     setPreviews((current) => {
@@ -992,12 +1004,13 @@ export function OcrImportPanel({
 
       {viewingImage ? (
         <div
-          className="fixed inset-0 z-50 grid grid-rows-[auto_minmax(0,1fr)] bg-black/85 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 grid grid-rows-[auto_minmax(0,1fr)] bg-black/85 p-4 backdrop-blur-sm cursor-zoom-out"
           role="dialog"
           aria-modal="true"
           aria-label={viewingImage.name}
+          onClick={() => setViewingImage(null)}
         >
-          <div className="mb-3 flex items-center justify-between gap-3">
+          <div className="mb-3 flex items-center justify-between gap-3 cursor-default" onClick={(e) => e.stopPropagation()}>
             <p className="truncate text-xs font-bold text-slate-200">{viewingImage.name}</p>
             <button
               className="h-10 rounded-md border border-white/15 px-4 text-xs font-bold text-slate-200 transition hover:bg-white/10"
@@ -1007,10 +1020,46 @@ export function OcrImportPanel({
               Close
             </button>
           </div>
-          <div className="grid min-h-0 place-items-center overflow-hidden">
+          <div className="relative grid min-h-0 place-items-center overflow-hidden cursor-default" onClick={(e) => e.stopPropagation()}>
+            {previews.length > 1 && (
+              <>
+                <button
+                  aria-label="Previous image"
+                  className="absolute left-4 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-sm transition hover:scale-105 hover:bg-black/85 hover:border-white/20 active:scale-95"
+                  type="button"
+                  onClick={() => {
+                    const index = previews.findIndex((p) => p.id === viewingImage.id);
+                    if (index !== -1) {
+                      const prevIndex = (index - 1 + previews.length) % previews.length;
+                      setViewingImage(previews[prevIndex]);
+                    }
+                  }}
+                >
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  aria-label="Next image"
+                  className="absolute right-4 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-sm transition hover:scale-105 hover:bg-black/85 hover:border-white/20 active:scale-95"
+                  type="button"
+                  onClick={() => {
+                    const index = previews.findIndex((p) => p.id === viewingImage.id);
+                    if (index !== -1) {
+                      const nextIndex = (index + 1) % previews.length;
+                      setViewingImage(previews[nextIndex]);
+                    }
+                  }}
+                >
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </>
+            )}
             <img
               alt={viewingImage.name}
-              className="max-h-[calc(100dvh-6rem)] max-w-[min(100%,72rem)] rounded-lg object-contain"
+              className="max-h-[calc(100dvh-6rem)] max-w-[min(100%,72rem)] rounded-lg object-contain select-none"
               src={viewingImage.url}
             />
           </div>

@@ -20,16 +20,27 @@ export default function DamageCalculator() {
   const result = useMemo(() => calculate(stats), [stats]);
 
   function updateStat(key: keyof Stats, value: number) {
+    let finalValue = Number.isFinite(value) ? value : 0;
+    if ((key === "dmgReduction" || key === "skillDmgReduction") && finalValue < 0) {
+      finalValue = Math.abs(finalValue);
+    }
     setStats((current) => ({
       ...current,
-      [key]: Number.isFinite(value) ? value : 0,
+      [key]: finalValue,
     }));
   }
 
   function applyStats(updates: Partial<Stats>) {
+    const processedUpdates = { ...updates };
+    if (processedUpdates.dmgReduction !== undefined && processedUpdates.dmgReduction < 0) {
+      processedUpdates.dmgReduction = Math.abs(processedUpdates.dmgReduction);
+    }
+    if (processedUpdates.skillDmgReduction !== undefined && processedUpdates.skillDmgReduction < 0) {
+      processedUpdates.skillDmgReduction = Math.abs(processedUpdates.skillDmgReduction);
+    }
     setStats((current) => ({
       ...current,
-      ...updates,
+      ...processedUpdates,
     }));
   }
 
@@ -46,7 +57,7 @@ export default function DamageCalculator() {
         </div>
         <div className="flex flex-wrap justify-end gap-2">
           <button
-            className="h-9 rounded-md border border-red-400/20 px-4 text-xs font-bold text-red-300 transition hover:border-red-400/50 hover:bg-red-400/10"
+            className="h-9 rounded-md border border-white/15 px-4 text-xs font-bold text-slate-200 transition hover:border-white/40 hover:bg-white/5 hover:text-white"
             type="button"
             onClick={() => setStats(ZERO_STATS)}
           >
