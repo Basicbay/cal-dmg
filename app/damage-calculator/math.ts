@@ -50,7 +50,7 @@ export function calculate(stats: Stats) {
     1 + (stats.skillEnhance - stats.dmgReduction - stats.skillDmgReduction) / 100,
   );
   const normalHit = afterElemental * finalMultiplier;
-  const criticalHit = normalHit * (stats.critDmg / 100);
+  const criticalHit = normalHit * (Math.max(100, stats.critDmg - stats.critDefense) / 100);
   const blockedHit = normalHit * BLOCKED_HIT_MULT;
 
   const effectiveCrit = clamp(stats.critical - stats.critResist);

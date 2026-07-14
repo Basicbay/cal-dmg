@@ -18,6 +18,7 @@ export type Stats = {
   classDefensePct: number;
   elementalResist: number;
   critResist: number;
+  critDefense: number;
   block: number;
   dmgReduction: number;
   skillDmgReduction: number;
