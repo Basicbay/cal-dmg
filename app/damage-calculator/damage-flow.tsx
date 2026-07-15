@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { CalculationResult } from "./math";
 import { compact, pct } from "./math";
 import { SectionTitle } from "./section-title";
@@ -49,6 +50,8 @@ export function DamageFlow({
   stats: Stats;
   onToggleFormulas: () => void;
 }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const qiShieldRule =
     stats.shieldBreak >= stats.qiShield
       ? "ทำลายโล่ถึงค่าโล่พลังชี่ จึงเหลือ 0"
@@ -57,101 +60,121 @@ export function DamageFlow({
         : "ทำลายโล่น้อย";
 
   return (
-    <section>
-      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-        <SectionTitle>ลำดับคำนวณดาเมจ / Damage Flow</SectionTitle>
-        <button
-          aria-pressed={showFormulas}
-          className="h-9 rounded-md border border-white/10 px-4 text-xs font-bold text-slate-300 transition hover:border-amber-400/40 hover:text-amber-300"
-          type="button"
-          onClick={onToggleFormulas}
+    <section className="rounded-lg border border-white/5 bg-[#141419]/40 p-4 transition-all duration-300">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div 
+          className="flex items-center gap-2 cursor-pointer select-none group"
+          onClick={() => setIsExpanded(!isExpanded)}
         >
-          {showFormulas ? "ซ่อนสูตร / Hide Formula" : "แสดงสูตร / Show Formula"}
-        </button>
+          <svg 
+            className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 group-hover:text-amber-400 ${isExpanded ? "rotate-90" : ""}`} 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor" 
+            strokeWidth={3.5}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+          <SectionTitle>ลำดับคำนวณดาเมจ / Damage Flow</SectionTitle>
+        </div>
+        
+        {isExpanded && (
+          <button
+            aria-pressed={showFormulas}
+            className="h-8 rounded border border-white/10 bg-white/5 px-3 text-[11px] font-black text-slate-300 transition hover:border-amber-400/40 hover:text-amber-300 cursor-pointer"
+            type="button"
+            onClick={onToggleFormulas}
+          >
+            {showFormulas ? "ซ่อนสูตร / Hide Formula" : "แสดงสูตร / Show Formula"}
+          </button>
+        )}
       </div>
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
-        <FlowCard
-          step="1"
-          title="โล่พลังชี่คงเหลือ / Qi Shield"
-          value={compact(result.remainingQiShield)}
-          showDetail={showFormulas}
-          detail={
-            <>
-              <p>โล่พลังชี่ {compact(stats.qiShield)} - ทำลายโล่ {compact(stats.shieldBreak)}</p>
-              <p>{qiShieldRule}</p>
-              <p>
-                <span className="font-bold text-slate-400">= โล่พลังชี่คงเหลือ {compact(result.remainingQiShield)}</span>
-              </p>
-            </>
-          }
-        />
-        <FlowCard
-          step="2"
-          title="โจมตีสุทธิ / Net ATK"
-          value={compact(result.physicalStatTerm)}
-          showDetail={showFormulas}
-          detail={
-            <>
-              <p>ข่มสำนัก {compact(stats.classRestraint)} + โบนัส {stats.classRestraintPct}% = ข่มสำนักสุทธิ {compact(result.restraintTotal)}</p>
-              <p>ป้องกันสำนัก {compact(stats.classDefense)} + โบนัส {stats.classDefensePct}% = ป้องกันสำนักสุทธิ {compact(result.classDefenseTotal)}</p>
-              <p>โจมตี {compact(stats.atk)} - โล่พลังชี่คงเหลือ {compact(result.remainingQiShield)} + ข่มสำนักสุทธิ {compact(result.restraintTotal)} - ป้องกันสำนักสุทธิ {compact(result.classDefenseTotal)}</p>
-              <p>
-                <span className="font-bold text-slate-400">= โจมตีสุทธิ {compact(result.physicalStatTerm)}</span>
-              </p>
-            </>
-          }
-        />
-        <FlowCard
-          step="3"
-          title="ดาเมจหลัง DEF / After DEF"
-          value={compact(result.physicalDamage)}
-          showDetail={showFormulas}
-          detail={
-            <>
-              <p>ป้องกัน {compact(stats.defense)} - เจาะเกราะ {compact(stats.armorPierce)} = DEF สุทธิ {compact(result.netDefense)}</p>
-              <p>DEF สุทธิ {compact(result.netDefense)} ทำให้ดาเมจผ่านได้ {pct(1 - result.defenseReduction)}</p>
-              <p>โจมตีสุทธิ {compact(result.physicalStatTerm)} x {pct(1 - result.defenseReduction)}</p>
-              <p>
-                <span className="font-bold text-slate-400">= ดาเมจหลัง DEF {compact(result.physicalDamage)}</span>
-              </p>
-            </>
-          }
-        />
-        <FlowCard
-          step="4"
-          title="รวมโจมตีธาตุ และสกิล / Element + Skill"
-          value={compact(result.afterElemental)}
-          showDetail={showFormulas}
-          detail={
-            <>
-              <p>ต้านทานธาตุ {compact(stats.elementalResist)} - เพิกเฉยต้านทานธาตุ {compact(stats.elementalPierce)} = ต้านทานธาตุสุทธิ {compact(result.netElementalResist)}</p>
-              <p>โจมตีธาตุ {compact(stats.elementalAtk)} x ผ่านต้าน {pct(1 - result.elementalReduction)} = ดาเมจธาตุสุทธิ {compact(result.elementalDamage)}</p>
-              <p>ดาเมจ DEF {compact(result.physicalDamage)} + ดาเมจธาตุสุทธิ {compact(result.elementalDamage)} x ดาเมจสกิล {stats.skillMult}%</p>
-              <p>
-                <span className="font-bold text-slate-400">= ดาเมจก่อนโบนัส {compact(result.afterElemental)}</span>
-              </p>
-            </>
-          }
-        />
-        <FlowCard
-          step="5"
-          title="ดาเมจตีปกติ / Normal Hit"
-          value={compact(result.normalHit)}
-          showDetail={showFormulas}
-          detail={
-            <>
-              <p>
-                โบนัสรวม 100% + เสริมพลังสกิล {stats.skillEnhance}% - ลดดาเมจ {stats.dmgReduction}% -
-                ลดดาเมจจากสกิล {stats.skillDmgReduction}% = {pct(result.finalMultiplier)}
-              </p>
-              <p>ดาเมจก่อนโบนัส {compact(result.afterElemental)} x โบนัสรวม {pct(result.finalMultiplier)}</p>
-              <p>
-                <span className="font-bold text-slate-400">= ดาเมจตีปกติ {compact(result.normalHit)}</span>
-              </p>
-            </>
-          }
-        />
-      </div>
+
+      {isExpanded && (
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2 transition-all duration-300">
+          <FlowCard
+            step="1"
+            title="โล่พลังชี่คงเหลือ / Qi Shield"
+            value={compact(result.remainingQiShield)}
+            showDetail={showFormulas}
+            detail={
+              <>
+                <p>โล่พลังชี่ {compact(stats.qiShield)} - ทำลายโล่ {compact(stats.shieldBreak)}</p>
+                <p>{qiShieldRule}</p>
+                <p>
+                  <span className="font-bold text-slate-400">= โล่พลังชี่คงเหลือ {compact(result.remainingQiShield)}</span>
+                </p>
+              </>
+            }
+          />
+          <FlowCard
+            step="2"
+            title="โจมตีสุทธิ / Net ATK"
+            value={compact(result.physicalStatTerm)}
+            showDetail={showFormulas}
+            detail={
+              <>
+                <p>ข่มสำนัก {compact(stats.classRestraint)} + โบนัส {stats.classRestraintPct}% = ข่มสำนักสุทธิ {compact(result.restraintTotal)}</p>
+                <p>ป้องกันสำนัก {compact(stats.classDefense)} + โบนัส {stats.classDefensePct}% = ป้องกันสำนักสุทธิ {compact(result.classDefenseTotal)}</p>
+                <p>โจมตี {compact(stats.atk)} - โล่พลังชี่คงเหลือ {compact(result.remainingQiShield)} + ข่มสำนักสุทธิ {compact(result.restraintTotal)} - ป้องกันสำนักสุทธิ {compact(result.classDefenseTotal)}</p>
+                <p>
+                  <span className="font-bold text-slate-400">= โจมตีสุทธิ {compact(result.physicalStatTerm)}</span>
+                </p>
+              </>
+            }
+          />
+          <FlowCard
+            step="3"
+            title="ดาเมจหลัง DEF / After DEF"
+            value={compact(result.physicalDamage)}
+            showDetail={showFormulas}
+            detail={
+              <>
+                <p>ป้องกัน {compact(stats.defense)} - เจาะเกราะ {compact(stats.armorPierce)} = DEF สุทธิ {compact(result.netDefense)}</p>
+                <p>DEF สุทธิ {compact(result.netDefense)} ทำให้ดาเมจผ่านได้ {pct(1 - result.defenseReduction)}</p>
+                <p>โจมตีสุทธิ {compact(result.physicalStatTerm)} x {pct(1 - result.defenseReduction)}</p>
+                <p>
+                  <span className="font-bold text-slate-400">= ดาเมจหลัง DEF {compact(result.physicalDamage)}</span>
+                </p>
+              </>
+            }
+          />
+          <FlowCard
+            step="4"
+            title="รวมโจมตีธาตุ และสกิล / Element + Skill"
+            value={compact(result.afterElemental)}
+            showDetail={showFormulas}
+            detail={
+              <>
+                <p>ต้านทานธาตุ {compact(stats.elementalResist)} - เพิกเฉยต้านทานธาตุ {compact(stats.elementalPierce)} = ต้านทานธาตุสุทธิ {compact(result.netElementalResist)}</p>
+                <p>โจมตีธาตุ {compact(stats.elementalAtk)} x ผ่านต้าน {pct(1 - result.elementalReduction)} = ดาเมจธาตุสุทธิ {compact(result.elementalDamage)}</p>
+                <p>ดาเมจ DEF {compact(result.physicalDamage)} + ดาเมจธาตุสุทธิ {compact(result.elementalDamage)} x ดาเมจสกิล {stats.skillMult}%</p>
+                <p>
+                  <span className="font-bold text-slate-400">= ดาเมจก่อนโบนัส {compact(result.afterElemental)}</span>
+                </p>
+              </>
+            }
+          />
+          <FlowCard
+            step="5"
+            title="ดาเมจตีปกติ / Normal Hit"
+            value={compact(result.normalHit)}
+            showDetail={showFormulas}
+            detail={
+              <>
+                <p>
+                  โบนัสรวม 100% + เสริมพลังสกิล {stats.skillEnhance}% - ลดดาเมจ {stats.dmgReduction}% -
+                  ลดดาเมจจากสกิล {stats.skillDmgReduction}% = {pct(result.finalMultiplier)}
+                </p>
+                <p>ดาเมจก่อนโบนัส {compact(result.afterElemental)} x โบนัสรวม {pct(result.finalMultiplier)}</p>
+                <p>
+                  <span className="font-bold text-slate-400">= ดาเมจตีปกติ {compact(result.normalHit)}</span>
+                </p>
+              </>
+            }
+          />
+        </div>
+      )}
     </section>
   );
 }

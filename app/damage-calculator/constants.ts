@@ -38,6 +38,36 @@ export const CRIT_CONSTANT = 1527;
 export const BLOCK_CONSTANT = 3233;
 export const BLOCKED_HIT_MULT = 0.5;
 
+export const ATTACKER_KEYS = [
+  "atk",
+  "skillMult",
+  "hits",
+  "armorPierce",
+  "shieldBreak",
+  "accuracy",
+  "classRestraint",
+  "classRestraintPct",
+  "elementalAtk",
+  "elementalPierce",
+  "critical",
+  "critDmg",
+  "skillEnhance",
+] as const;
+
+export const DEFENDER_KEYS = [
+  "hp",
+  "defense",
+  "qiShield",
+  "classDefense",
+  "classDefensePct",
+  "elementalResist",
+  "critResist",
+  "critDefense",
+  "block",
+  "dmgReduction",
+  "skillDmgReduction",
+] as const;
+
 export const attackerFields: Field[] = [
   { key: "hits", label: "จำนวนครั้งโจมตี / Hit Count", hint: "จำนวนครั้งที่โจมตี / Number of hits", highlighted: true },
   { key: "skillMult", label: "ดาเมจสกิล / Damage Skill", hint: "เช่น 150 = 1.5x / e.g. 150 = 1.5x", suffix: "%", highlighted: true },

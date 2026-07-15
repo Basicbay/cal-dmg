@@ -49,23 +49,63 @@ const MAX_FILES = 3;
 const POSITION_OCR_CHARS = "0123456789.,-/%";
 
 const attackerSpecs: StatSpec[] = [
-  { key: "elementalPierce", aliases: ["ELEMENTAL RES PEN", "RES PEN", "เพิกเฉยต้านทานธาตุ", "เพิกเฉยตานทานธาต", "เพิกเฉยต้านทาน"] },
-  { key: "classRestraintPct", aliases: ["SCHOOL COUNTER", "ข่มสำนัก", "ขมสํานัก", "ขมสำนัก"], valueMode: "percent" },
-  { key: "skillEnhance", aliases: ["SKILL ENHANCEMENT", "เสริมพลังสกิล"], valueMode: "percent" },
+  {
+    key: "elementalPierce",
+    aliases: [
+      "ELEMENTAL RES PEN",
+      "RES PEN",
+      "เพิกเฉยต้านทานธาตุ",
+      "เพิกเฉยตานทานธาต",
+      "เพิกเฉยต้านทาน",
+    ],
+  },
+  {
+    key: "classRestraintPct",
+    aliases: ["SCHOOL COUNTER", "ข่มสำนัก", "ขมสํานัก", "ขมสำนัก"],
+    valueMode: "percent",
+  },
+  {
+    key: "skillEnhance",
+    aliases: ["SKILL ENHANCEMENT", "เสริมพลังสกิล"],
+    valueMode: "percent",
+  },
   { key: "armorPierce", aliases: ["DEF BREAK", "เจาะเกราะ"] },
   { key: "armorPierce", aliases: ["เจาะเกราะ"] },
-  { key: "shieldBreak", aliases: ["SHIELD BREAK", "ทำลายโล่", "ทําลายโล", "ทำลายโล"] },
+  {
+    key: "shieldBreak",
+    aliases: ["SHIELD BREAK", "ทำลายโล่", "ทําลายโล", "ทำลายโล"],
+  },
   { key: "elementalAtk", aliases: ["ELEMENTAL ATK", "โจมตีธาตุ"] },
-  { key: "classRestraint", aliases: ["SCHOOL COUNTER", "ข่มสำนัก", "ขมสํานัก", "ขมสำนัก"] },
-  { key: "critDmg", aliases: ["CRIT DMG", "ดาเมจคริติคอล", "เมจคริติคอล", "เจคริติคอล"], valueMode: "percent" },
+  {
+    key: "classRestraint",
+    aliases: ["SCHOOL COUNTER", "ข่มสำนัก", "ขมสํานัก", "ขมสำนัก"],
+  },
+  {
+    key: "critDmg",
+    aliases: ["CRIT DMG", "ดาเมจคริติคอล", "เมจคริติคอล", "เจคริติคอล"],
+    valueMode: "percent",
+  },
   { key: "skillMult", aliases: ["DAMAGE SKILL", "ดาเมจสกิล"] },
   {
     key: "critical",
     aliases: ["CRIT", "คริติคอล"],
     excludes: ["DMG", "RES", "DEF", "ดาเมจ", "เมจ", "ต้านทาน", "ป้องกัน"],
-    lineExcludes: ["DMG", "RES", "DEF", "ดาเมจ", "เมจ", "ต้านทาน", "ป้องกัน", "%"],
+    lineExcludes: [
+      "DMG",
+      "RES",
+      "DEF",
+      "ดาเมจ",
+      "เมจ",
+      "ต้านทาน",
+      "ป้องกัน",
+      "%",
+    ],
   },
-  { key: "accuracy", aliases: ["HIT", "ความแม่นยำ", "ความแม่นยํา"], excludes: ["COUNT"] },
+  {
+    key: "accuracy",
+    aliases: ["HIT", "ความแม่นยำ", "ความแม่นยํา"],
+    excludes: ["COUNT"],
+  },
   {
     key: "atk",
     aliases: ["MIGHT ATK", "ATK", "โจมตี", "โจมตีกำลัง"],
@@ -76,26 +116,45 @@ const attackerSpecs: StatSpec[] = [
 ];
 
 const defenderSpecs: StatSpec[] = [
-  { key: "classDefensePct", aliases: ["SCHOOL DEF", "ป้องกันสำนัก"], valueMode: "percent" },
-  { key: "skillDmgReduction", aliases: ["SKILL DMG REDUCTION", "ลดดาเมจจากสกิล"], valueMode: "percent" },
-  { key: "dmgReduction", aliases: ["DMG REDUCTION", "ลดดาเมจ"], lineExcludes: ["SKILL", "สกิล"], valueMode: "percent" },
+  {
+    key: "classDefensePct",
+    aliases: ["SCHOOL DEF", "ป้องกันสำนัก"],
+    valueMode: "percent",
+  },
+  {
+    key: "skillDmgReduction",
+    aliases: ["SKILL DMG REDUCTION", "ลดดาเมจจากสกิล"],
+    valueMode: "percent",
+  },
+  {
+    key: "dmgReduction",
+    aliases: ["DMG REDUCTION", "ลดดาเมจ"],
+    lineExcludes: ["SKILL", "สกิล"],
+    valueMode: "percent",
+  },
   { key: "elementalResist", aliases: ["ELEMENTAL RES", "ต้านทานธาตุ"] },
   { key: "critResist", aliases: ["CRIT RES", "ต้านทานคริติคอล"] },
   { key: "classDefense", aliases: ["SCHOOL DEF", "ป้องกันสำนัก"] },
   { key: "qiShield", aliases: ["QI SHIELD", "โล่พลังชี่"] },
-  { key: "defense", aliases: ["DEF", "ป้องกัน"], excludes: ["SCHOOL", "CRIT", "BREAK", "สำนัก", "คริติคอล"] },
+  {
+    key: "defense",
+    aliases: ["DEF", "ป้องกัน"],
+    excludes: ["SCHOOL", "CRIT", "BREAK", "สำนัก", "คริติคอล"],
+  },
   { key: "block", aliases: ["BLOCK", "บล็อก"] },
 ];
 
 const sideTheme = {
   attacker: {
     border: "border-sky-400/45",
-    button: "border-sky-400/40 text-sky-200 hover:border-sky-300 hover:bg-sky-400/10",
+    button:
+      "border-sky-400/40 text-sky-200 hover:border-sky-300 hover:bg-sky-400/10",
     chip: "border-sky-400/30 text-sky-300",
   },
   defender: {
     border: "border-red-500/45",
-    button: "border-red-500/40 text-red-200 hover:border-red-400 hover:bg-red-500/10",
+    button:
+      "border-red-500/40 text-red-200 hover:border-red-400 hover:bg-red-500/10",
     chip: "border-red-500/30 text-red-300",
   },
 };
@@ -156,18 +215,66 @@ function summaryRegions(rows: {
   const height = 0.07;
 
   return [
-    { key: "atk", rect: [leftX, rows.atk, leftWidth, height], side: "attacker" },
-    { key: "armorPierce", rect: [rightX, rows.atk, rightWidth, height], side: "attacker" },
-    { key: "elementalAtk", rect: [leftX, rows.elementalAtk, leftWidth, height], side: "attacker" },
-    { key: "elementalPierce", rect: [rightX, rows.elementalAtk, rightWidth, height], side: "attacker" },
-    { key: "accuracy", rect: [leftX, rows.accuracy, leftWidth, height], side: "attacker" },
-    { key: "critical", rect: [rightX, rows.accuracy, rightWidth, height], side: "attacker" },
-    { key: "classRestraint", rect: [rightX, rows.classRestraint, rightWidth, height], side: "attacker" },
-    { key: "defense", rect: [leftX, rows.defense, leftWidth, height], side: "defender" },
-    { key: "block", rect: [leftX, rows.block, leftWidth, height], side: "defender" },
-    { key: "critResist", rect: [leftX, rows.critResist, leftWidth, height], side: "defender" },
-    { key: "elementalResist", rect: [leftX, rows.elementalResist, leftWidth, 0.055], side: "defender" },
-    { key: "classDefense", rect: [rightX, rows.elementalResist, rightWidth, 0.055], side: "defender" },
+    {
+      key: "atk",
+      rect: [leftX, rows.atk, leftWidth, height],
+      side: "attacker",
+    },
+    {
+      key: "armorPierce",
+      rect: [rightX, rows.atk, rightWidth, height],
+      side: "attacker",
+    },
+    {
+      key: "elementalAtk",
+      rect: [leftX, rows.elementalAtk, leftWidth, height],
+      side: "attacker",
+    },
+    {
+      key: "elementalPierce",
+      rect: [rightX, rows.elementalAtk, rightWidth, height],
+      side: "attacker",
+    },
+    {
+      key: "accuracy",
+      rect: [leftX, rows.accuracy, leftWidth, height],
+      side: "attacker",
+    },
+    {
+      key: "critical",
+      rect: [rightX, rows.accuracy, rightWidth, height],
+      side: "attacker",
+    },
+    {
+      key: "classRestraint",
+      rect: [rightX, rows.classRestraint, rightWidth, height],
+      side: "attacker",
+    },
+    {
+      key: "defense",
+      rect: [leftX, rows.defense, leftWidth, height],
+      side: "defender",
+    },
+    {
+      key: "block",
+      rect: [leftX, rows.block, leftWidth, height],
+      side: "defender",
+    },
+    {
+      key: "critResist",
+      rect: [leftX, rows.critResist, leftWidth, height],
+      side: "defender",
+    },
+    {
+      key: "elementalResist",
+      rect: [leftX, rows.elementalResist, leftWidth, 0.055],
+      side: "defender",
+    },
+    {
+      key: "classDefense",
+      rect: [rightX, rows.elementalResist, rightWidth, 0.055],
+      side: "defender",
+    },
   ];
 }
 
@@ -180,51 +287,143 @@ function detailAttackRegions(
   const height = 0.065;
 
   return [
-    ...(includeAtk ? [{ key: "atk" as const, rect: [x, rows.row1, width, height] as PositionRegion["rect"], side: "attacker" as const }] : []),
-    { key: "accuracy", rect: [x, rows.row2, width, height] as PositionRegion["rect"], side: "attacker" },
-    { key: "critical", rect: [x, rows.row3, width, height] as PositionRegion["rect"], side: "attacker" },
-    { key: "critDmg", rect: [x, rows.row4, width, height] as PositionRegion["rect"], side: "attacker", valueMode: "percent" },
-    { key: "shieldBreak", rect: [x, rows.row5, width, height] as PositionRegion["rect"], side: "attacker" },
-    { key: "elementalAtk", rect: [x, rows.row6, width, height] as PositionRegion["rect"], side: "attacker" },
-    { key: "classRestraint", rect: [x, rows.row8, width, height] as PositionRegion["rect"], side: "attacker" },
-    { key: "classRestraintPct", rect: [x, rows.row8, width, height] as PositionRegion["rect"], side: "attacker", valueMode: "percent" },
-    { key: "elementalPierce", rect: [x, rows.row10, width, height] as PositionRegion["rect"], side: "attacker" },
+    ...(includeAtk
+      ? [
+          {
+            key: "atk" as const,
+            rect: [x, rows.row1, width, height] as PositionRegion["rect"],
+            side: "attacker" as const,
+          },
+        ]
+      : []),
+    {
+      key: "accuracy",
+      rect: [x, rows.row2, width, height] as PositionRegion["rect"],
+      side: "attacker",
+    },
+    {
+      key: "critical",
+      rect: [x, rows.row3, width, height] as PositionRegion["rect"],
+      side: "attacker",
+    },
+    {
+      key: "critDmg",
+      rect: [x, rows.row4, width, height] as PositionRegion["rect"],
+      side: "attacker",
+      valueMode: "percent",
+    },
+    {
+      key: "shieldBreak",
+      rect: [x, rows.row5, width, height] as PositionRegion["rect"],
+      side: "attacker",
+    },
+    {
+      key: "elementalAtk",
+      rect: [x, rows.row6, width, height] as PositionRegion["rect"],
+      side: "attacker",
+    },
+    {
+      key: "classRestraint",
+      rect: [x, rows.row8, width, height] as PositionRegion["rect"],
+      side: "attacker",
+    },
+    {
+      key: "classRestraintPct",
+      rect: [x, rows.row8, width, height] as PositionRegion["rect"],
+      side: "attacker",
+      valueMode: "percent",
+    },
+    {
+      key: "elementalPierce",
+      rect: [x, rows.row10, width, height] as PositionRegion["rect"],
+      side: "attacker",
+    },
   ];
 }
 
-function detailScrolledAttackRegions(rows: typeof detailScrolledRows, rect: [number, number]): PositionRegion[] {
+function detailScrolledAttackRegions(
+  rows: typeof detailScrolledRows,
+  rect: [number, number],
+): PositionRegion[] {
   const [x, width] = rect;
   const height = 0.065;
 
   return [
-    { key: "armorPierce", rect: [x, rows.row9, width, height], side: "attacker" },
-    { key: "skillEnhance", rect: [x, rows.row10, width, height], side: "attacker", valueMode: "percent" },
+    {
+      key: "armorPierce",
+      rect: [x, rows.row9, width, height],
+      side: "attacker",
+    },
+    {
+      key: "skillEnhance",
+      rect: [x, rows.row10, width, height],
+      side: "attacker",
+      valueMode: "percent",
+    },
   ];
 }
 
-function detailDefenseRegions(rows: typeof detailTopRows, rect: [number, number]): PositionRegion[] {
+function detailDefenseRegions(
+  rows: typeof detailTopRows,
+  rect: [number, number],
+): PositionRegion[] {
   const [x, width] = rect;
   const height = 0.065;
 
   return [
     { key: "defense", rect: [x, rows.row1, width, height], side: "defender" },
     { key: "block", rect: [x, rows.row2, width, height], side: "defender" },
-    { key: "critResist", rect: [x, rows.row3, width, height], side: "defender" },
+    {
+      key: "critResist",
+      rect: [x, rows.row3, width, height],
+      side: "defender",
+    },
     { key: "qiShield", rect: [x, rows.row5, width, height], side: "defender" },
-    { key: "elementalResist", rect: [x, rows.row6, width, height], side: "defender" },
-    { key: "classDefense", rect: [x, rows.row8, width, height], side: "defender" },
-    { key: "classDefensePct", rect: [x, rows.row8, width, height], side: "defender", valueMode: "percent" },
-    { key: "dmgReduction", rect: [x, rows.row10, width, height], side: "defender", valueMode: "percent" },
+    {
+      key: "elementalResist",
+      rect: [x, rows.row6, width, height],
+      side: "defender",
+    },
+    {
+      key: "classDefense",
+      rect: [x, rows.row8, width, height],
+      side: "defender",
+    },
+    {
+      key: "classDefensePct",
+      rect: [x, rows.row8, width, height],
+      side: "defender",
+      valueMode: "percent",
+    },
+    {
+      key: "dmgReduction",
+      rect: [x, rows.row10, width, height],
+      side: "defender",
+      valueMode: "percent",
+    },
   ];
 }
 
-function detailScrolledDefenseRegions(rows: typeof detailScrolledRows, rect: [number, number]): PositionRegion[] {
+function detailScrolledDefenseRegions(
+  rows: typeof detailScrolledRows,
+  rect: [number, number],
+): PositionRegion[] {
   const [x, width] = rect;
   const height = 0.065;
 
   return [
-    { key: "dmgReduction", rect: [x, rows.row9, width, height], side: "defender", valueMode: "percent" },
-    { key: "skillDmgReduction", rect: [x, rows.row10, width, height], side: "defender", valueMode: "percent" },
+    {
+      key: "dmgReduction",
+      rect: [x, rows.row9, width, height],
+      side: "defender",
+      valueMode: "percent",
+    },
+    {
+      key: "skillDmgReduction",
+      rect: [x, rows.row10, width, height],
+      side: "defender",
+      valueMode: "percent",
+    },
   ];
 }
 
@@ -306,7 +505,9 @@ function findAliasIndex(line: string, alias: string) {
 
   if (/^[A-Z0-9 .%]+$/.test(normalizedAlias)) {
     const escapedAlias = normalizedAlias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const match = line.match(new RegExp(`(^|[^A-Z0-9])(${escapedAlias})(?=[^A-Z0-9]|$)`));
+    const match = line.match(
+      new RegExp(`(^|[^A-Z0-9])(${escapedAlias})(?=[^A-Z0-9]|$)`),
+    );
 
     return match?.index === undefined ? -1 : match.index + match[1].length;
   }
@@ -319,7 +520,9 @@ function parseNumber(value: string, mode: StatSpec["valueMode"] = "first") {
     .replace(/(\d),(\d)(?!\d)/g, "$1.$2")
     .replace(/,/g, "")
     .replace(/[Oo]/g, "0");
-  const rangeMatch = normalized.match(/(-?\d+(?:\.\d+)?)\s*-\s*(-?\d+(?:\.\d+)?)/);
+  const rangeMatch = normalized.match(
+    /(-?\d+(?:\.\d+)?)\s*-\s*(-?\d+(?:\.\d+)?)/,
+  );
 
   if (rangeMatch && mode !== "percent") {
     const min = Number(rangeMatch[1]);
@@ -331,7 +534,9 @@ function parseNumber(value: string, mode: StatSpec["valueMode"] = "first") {
   }
 
   if (mode === "percent") {
-    const percentMatches = Array.from(normalized.matchAll(/-?\d+(?:\.\d+)?\s*%/g));
+    const percentMatches = Array.from(
+      normalized.matchAll(/-?\d+(?:\.\d+)?\s*%/g),
+    );
     const percentMatch = percentMatches[0];
 
     if (percentMatch) {
@@ -375,7 +580,10 @@ function findNumberAfterAlias(line: string, spec: StatSpec) {
         const excludedIndex = valueSegment.indexOf(normalizeText(word));
         const firstNumberIndex = valueSegment.search(/-?\d/);
 
-        return excludedIndex !== -1 && (firstNumberIndex === -1 || excludedIndex < firstNumberIndex);
+        return (
+          excludedIndex !== -1 &&
+          (firstNumberIndex === -1 || excludedIndex < firstNumberIndex)
+        );
       }) ?? false;
 
     if (hasExcludedWordBeforeValue) {
@@ -401,7 +609,9 @@ function findNumberNearLine(lines: string[], index: number, spec: StatSpec) {
 
   for (let offset = 1; offset <= 3; offset += 1) {
     const nextLine = lines[index + offset];
-    const nextLineValue = nextLine ? parseNumber(nextLine, spec.valueMode) : null;
+    const nextLineValue = nextLine
+      ? parseNumber(nextLine, spec.valueMode)
+      : null;
 
     if (nextLineValue !== null) {
       return nextLineValue;
@@ -413,19 +623,19 @@ function findNumberNearLine(lines: string[], index: number, spec: StatSpec) {
 
 function parseStatsFromText(text: string, side: OcrSide) {
   const specs = side === "attacker" ? attackerSpecs : defenderSpecs;
-  const lines = text
-    .split(/\r?\n/)
-    .map(normalizeText)
-    .filter(Boolean);
+  const lines = text.split(/\r?\n/).map(normalizeText).filter(Boolean);
   const updates: Partial<Stats> = {};
   const matches: StatMatch[] = [];
 
   for (const spec of specs) {
     for (let index = 0; index < lines.length; index += 1) {
       const line = lines[index];
-      const hasAlias = spec.aliases.some((alias) => findAliasIndex(line, alias) !== -1);
+      const hasAlias = spec.aliases.some(
+        (alias) => findAliasIndex(line, alias) !== -1,
+      );
       const hasExcludedLine =
-        spec.lineExcludes?.some((word) => line.includes(normalizeText(word))) ?? false;
+        spec.lineExcludes?.some((word) => line.includes(normalizeText(word))) ??
+        false;
 
       if (!hasAlias || hasExcludedLine) {
         continue;
@@ -442,12 +652,18 @@ function parseStatsFromText(text: string, side: OcrSide) {
   }
 
   if (side === "attacker") {
-    const attackerFallbacks: Array<[keyof Stats, string[], StatSpec["valueMode"]?]> = [
+    const attackerFallbacks: Array<
+      [keyof Stats, string[], StatSpec["valueMode"]?]
+    > = [
       ["atk", ["MIGHT ATK", "โจมตีกําลัง", "โจมตีกำลัง"], "first"],
       ["shieldBreak", ["SHIELD BREAK", "ทำลายโล่", "ทําลายโล"], "first"],
       ["accuracy", ["HIT", "ความแม่นยำ", "ความแม่นยํา"], "first"],
       ["classRestraint", ["SCHOOL COUNTER", "ข่มสำนัก", "ขมสํานัก"], "first"],
-      ["classRestraintPct", ["SCHOOL COUNTER", "ข่มสำนัก", "ขมสํานัก"], "percent"],
+      [
+        "classRestraintPct",
+        ["SCHOOL COUNTER", "ข่มสำนัก", "ขมสํานัก"],
+        "percent",
+      ],
       ["critDmg", ["CRIT DMG", "ดาเมจคริติคอล", "เมจคริติคอล"], "percent"],
       ["skillEnhance", ["SKILL ENHANCEMENT", "เสริมพลังสกิล"], "percent"],
     ];
@@ -497,7 +713,9 @@ function findCriticalFallbackValue(lines: string[]) {
   }
 
   const accuracyIndex = lines.findIndex((line) =>
-    ["HIT", "ความแม่นยำ", "ความแม่นยํา"].some((alias) => findAliasIndex(line, alias) !== -1),
+    ["HIT", "ความแม่นยำ", "ความแม่นยํา"].some(
+      (alias) => findAliasIndex(line, alias) !== -1,
+    ),
   );
 
   if (accuracyIndex === -1) {
@@ -507,11 +725,22 @@ function findCriticalFallbackValue(lines: string[]) {
   for (let offset = 1; offset <= 10; offset += 1) {
     const line = lines[accuracyIndex + offset];
 
-    if (!line || includesAny(line, ["CRIT DMG", "ดาเมจ", "เมจ", "SHIELD BREAK", "ทำลายโล่"])) {
+    if (
+      !line ||
+      includesAny(line, [
+        "CRIT DMG",
+        "ดาเมจ",
+        "เมจ",
+        "SHIELD BREAK",
+        "ทำลายโล่",
+      ])
+    ) {
       break;
     }
 
-    if (includesAny(line, ["BLOCK", "RES", "DEF", "บล็อก", "ต้าน", "ป้องกัน"])) {
+    if (
+      includesAny(line, ["BLOCK", "RES", "DEF", "บล็อก", "ต้าน", "ป้องกัน"])
+    ) {
       continue;
     }
 
@@ -527,10 +756,16 @@ function findCriticalFallbackValue(lines: string[]) {
 
 function getPositionTemplates(width: number, height: number) {
   const aspect = width / height;
-  return positionTemplates.filter((template) => aspect >= template.minAspect && aspect <= template.maxAspect);
+  return positionTemplates.filter(
+    (template) => aspect >= template.minAspect && aspect <= template.maxAspect,
+  );
 }
 
-function isValidPositionValue(key: keyof Stats, value: number, mode: StatSpec["valueMode"] = "first") {
+function isValidPositionValue(
+  key: keyof Stats,
+  value: number,
+  mode: StatSpec["valueMode"] = "first",
+) {
   if (!Number.isFinite(value)) {
     return false;
   }
@@ -581,7 +816,10 @@ function parsePositionValue(text: string, region: PositionRegion) {
 
   const value = parseNumber(text, region.valueMode);
 
-  if (value === null || !isValidPositionValue(region.key, value, region.valueMode)) {
+  if (
+    value === null ||
+    !isValidPositionValue(region.key, value, region.valueMode)
+  ) {
     return null;
   }
 
@@ -597,7 +835,9 @@ function scorePositionTemplate(
   let score = matches.length;
 
   for (const key of template.requiredKeys ?? []) {
-    const requiredForSide = template.regions.some((region) => region.side === side && region.key === key);
+    const requiredForSide = template.regions.some(
+      (region) => region.side === side && region.key === key,
+    );
 
     if (!requiredForSide) {
       continue;
@@ -617,14 +857,23 @@ function scorePositionTemplate(
   return score;
 }
 
-async function createNumberCrop(image: ImageBitmap, rect: PositionRegion["rect"]) {
+async function createNumberCrop(
+  image: ImageBitmap,
+  rect: PositionRegion["rect"],
+) {
   const [x, y, width, height] = rect;
   const paddingX = 0.01;
   const paddingY = 0.01;
   const sourceX = Math.max(0, Math.round((x - paddingX) * image.width));
   const sourceY = Math.max(0, Math.round((y - paddingY) * image.height));
-  const sourceWidth = Math.min(image.width - sourceX, Math.round((width + paddingX * 2) * image.width));
-  const sourceHeight = Math.min(image.height - sourceY, Math.round((height + paddingY * 2) * image.height));
+  const sourceWidth = Math.min(
+    image.width - sourceX,
+    Math.round((width + paddingX * 2) * image.width),
+  );
+  const sourceHeight = Math.min(
+    image.height - sourceY,
+    Math.round((height + paddingY * 2) * image.height),
+  );
   const scale = 5;
   const canvas = document.createElement("canvas");
   canvas.width = Math.max(1, sourceWidth * scale);
@@ -652,7 +901,10 @@ async function createNumberCrop(image: ImageBitmap, rect: PositionRegion["rect"]
   const pixels = imageData.data;
 
   for (let index = 0; index < pixels.length; index += 4) {
-    const luminance = pixels[index] * 0.299 + pixels[index + 1] * 0.587 + pixels[index + 2] * 0.114;
+    const luminance =
+      pixels[index] * 0.299 +
+      pixels[index + 1] * 0.587 +
+      pixels[index + 2] * 0.114;
     const threshold = luminance > 115 ? 0 : 255;
     pixels[index] = threshold;
     pixels[index + 1] = threshold;
@@ -674,7 +926,11 @@ async function recognizeStatsByPosition(
 ) {
   const image = await createImageBitmap(file);
   const templates = getPositionTemplates(image.width, image.height);
-  let bestResult: { matches: StatMatch[]; score: number; updates: Partial<Stats> } = {
+  let bestResult: {
+    matches: StatMatch[];
+    score: number;
+    updates: Partial<Stats>;
+  } = {
     matches: [],
     score: Number.NEGATIVE_INFINITY,
     updates: {},
@@ -710,10 +966,19 @@ async function recognizeStatsByPosition(
       }
     }
 
-    const score = scorePositionTemplate(template, templateUpdates, templateMatches, side);
+    const score = scorePositionTemplate(
+      template,
+      templateUpdates,
+      templateMatches,
+      side,
+    );
 
     if (score > bestResult.score) {
-      bestResult = { matches: templateMatches, score, updates: templateUpdates };
+      bestResult = {
+        matches: templateMatches,
+        score,
+        updates: templateUpdates,
+      };
     }
   }
 
@@ -728,14 +993,19 @@ function findAttackerFallbackValue(
 ) {
   for (let index = 0; index < lines.length; index += 1) {
     const line = lines[index];
-    const matchedAlias = aliases.find((alias) => findAliasIndex(line, alias) !== -1);
+    const matchedAlias = aliases.find(
+      (alias) => findAliasIndex(line, alias) !== -1,
+    );
 
     if (!matchedAlias) {
       continue;
     }
 
     const aliasIndex = findAliasIndex(line, matchedAlias);
-    const segment = aliasIndex >= 0 ? line.slice(aliasIndex + normalizeText(matchedAlias).length) : line;
+    const segment =
+      aliasIndex >= 0
+        ? line.slice(aliasIndex + normalizeText(matchedAlias).length)
+        : line;
     const sameLineValue = parseNumber(segment, valueMode);
 
     if (sameLineValue !== null) {
@@ -774,7 +1044,10 @@ async function preprocessImage(file: File) {
   const pixels = imageData.data;
 
   for (let index = 0; index < pixels.length; index += 4) {
-    const luminance = pixels[index] * 0.299 + pixels[index + 1] * 0.587 + pixels[index + 2] * 0.114;
+    const luminance =
+      pixels[index] * 0.299 +
+      pixels[index + 1] * 0.587 +
+      pixels[index + 2] * 0.114;
     const adjusted = Math.max(0, Math.min(255, (luminance - 45) * 2.1));
     pixels[index] = adjusted;
     pixels[index + 1] = adjusted;
@@ -807,7 +1080,9 @@ export function OcrImportPanel({
   const [previews, setPreviews] = useState<ImagePreview[]>([]);
   const [viewingImage, setViewingImage] = useState<ImagePreview | null>(null);
   const [matchCount, setMatchCount] = useState(0);
-  const [message, setMessage] = useState("อัปโหลดได้สูงสุด 3 รูป / Up to 3 images");
+  const [message, setMessage] = useState(
+    "อัปโหลดได้สูงสุด 3 รูป / Up to 3 images",
+  );
   const theme = sideTheme[side];
 
   useEffect(() => {
@@ -816,7 +1091,9 @@ export function OcrImportPanel({
 
   useEffect(() => {
     return () => {
-      previewsRef.current.forEach((preview) => URL.revokeObjectURL(preview.url));
+      previewsRef.current.forEach((preview) =>
+        URL.revokeObjectURL(preview.url),
+      );
     };
   }, []);
 
@@ -897,7 +1174,12 @@ export function OcrImportPanel({
       });
 
       for (const file of selectedFiles) {
-        const positionParsed = await recognizeStatsByPosition(worker, file, side, PSM.SINGLE_LINE);
+        const positionParsed = await recognizeStatsByPosition(
+          worker,
+          file,
+          side,
+          PSM.SINGLE_LINE,
+        );
         Object.assign(updates, positionParsed.updates);
         totalMatches += positionParsed.matches.length;
 
@@ -911,7 +1193,9 @@ export function OcrImportPanel({
         const result = await worker.recognize(focusedImage);
         const parsed = parseStatsFromText(result.data.text, side);
         const fallbackUpdates = Object.fromEntries(
-          Object.entries(parsed.updates).filter(([key]) => updates[key as keyof Stats] === undefined),
+          Object.entries(parsed.updates).filter(
+            ([key]) => updates[key as keyof Stats] === undefined,
+          ),
         ) as Partial<Stats>;
 
         Object.assign(updates, fallbackUpdates);
@@ -929,7 +1213,9 @@ export function OcrImportPanel({
       );
     } catch {
       setStatus("error");
-      setMessage("อ่านรูปไม่สำเร็จ ลองใช้รูปที่ชัดขึ้น / OCR failed, try a clearer image");
+      setMessage(
+        "อ่านรูปไม่สำเร็จ ลองใช้รูปที่ชัดขึ้น / OCR failed, try a clearer image",
+      );
     } finally {
       if (inputRef.current) {
         inputRef.current.value = "";
@@ -938,16 +1224,18 @@ export function OcrImportPanel({
   }
 
   return (
-    <section className={`rounded-lg border bg-[#1c1c21] p-4 ${theme.border}`}>
-      <div className="mb-3 flex items-center justify-between gap-3">
+    <section
+      className={`rounded-lg border bg-[#1c1c21] p-3 ${theme.border}`}
+    >
+      {/* <div className="mb-3 flex items-center justify-between gap-3">
         <div>
           <h3 className="text-xs font-black uppercase tracking-[0.02em] text-slate-200">{title}</h3>
-          {/* <p className="mt-1 text-[11px] font-medium text-slate-600">{message}</p> */}
+          <p className="mt-1 text-[11px] font-medium text-slate-600">{message}</p>
         </div>
         <span className={`rounded border px-2 py-1 text-[10px] font-black ${theme.chip}`}>
           OCR
         </span>
-      </div>
+      </div> */}
 
       <input
         accept="image/*"
@@ -977,7 +1265,10 @@ export function OcrImportPanel({
         <div className="mt-3 grid gap-2 text-[11px] font-medium text-slate-500">
           <div className="grid grid-cols-3 gap-2">
             {previews.map((preview) => (
-              <div className="relative overflow-hidden rounded-md border border-white/10 bg-black/25" key={preview.id}>
+              <div
+                className="relative overflow-hidden rounded-md border border-white/10 bg-black/25"
+                key={preview.id}
+              >
                 <button
                   aria-label={`Delete ${preview.name}`}
                   className="absolute right-1 top-1 z-10 grid h-6 min-w-6 place-items-center rounded-full border border-red-300/40 bg-black/75 px-1.5 text-[10px] font-black text-red-200 transition hover:border-red-200 hover:bg-red-500/35"
@@ -1012,8 +1303,13 @@ export function OcrImportPanel({
           aria-label={viewingImage.name}
           onClick={() => setViewingImage(null)}
         >
-          <div className="mb-3 flex items-center justify-between gap-3 cursor-default" onClick={(e) => e.stopPropagation()}>
-            <p className="truncate text-xs font-bold text-slate-200">{viewingImage.name}</p>
+          <div
+            className="mb-3 flex items-center justify-between gap-3 cursor-default"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className="truncate text-xs font-bold text-slate-200">
+              {viewingImage.name}
+            </p>
             <button
               className="h-10 rounded-md border border-white/15 px-4 text-xs font-bold text-slate-200 transition hover:bg-white/10"
               type="button"
@@ -1022,7 +1318,10 @@ export function OcrImportPanel({
               Close
             </button>
           </div>
-          <div className="relative grid min-h-0 place-items-center overflow-hidden cursor-default" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="relative grid min-h-0 place-items-center overflow-hidden cursor-default"
+            onClick={(e) => e.stopPropagation()}
+          >
             {previews.length > 1 && (
               <>
                 <button
@@ -1030,15 +1329,28 @@ export function OcrImportPanel({
                   className="absolute left-4 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-sm transition hover:scale-105 hover:bg-black/85 hover:border-white/20 active:scale-95"
                   type="button"
                   onClick={() => {
-                    const index = previews.findIndex((p) => p.id === viewingImage.id);
+                    const index = previews.findIndex(
+                      (p) => p.id === viewingImage.id,
+                    );
                     if (index !== -1) {
-                      const prevIndex = (index - 1 + previews.length) % previews.length;
+                      const prevIndex =
+                        (index - 1 + previews.length) % previews.length;
                       setViewingImage(previews[prevIndex]);
                     }
                   }}
                 >
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15 19l-7-7 7-7"
+                    />
                   </svg>
                 </button>
                 <button
@@ -1046,15 +1358,27 @@ export function OcrImportPanel({
                   className="absolute right-4 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-sm transition hover:scale-105 hover:bg-black/85 hover:border-white/20 active:scale-95"
                   type="button"
                   onClick={() => {
-                    const index = previews.findIndex((p) => p.id === viewingImage.id);
+                    const index = previews.findIndex(
+                      (p) => p.id === viewingImage.id,
+                    );
                     if (index !== -1) {
                       const nextIndex = (index + 1) % previews.length;
                       setViewingImage(previews[nextIndex]);
                     }
                   }}
                 >
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 5l7 7-7 7"
+                    />
                   </svg>
                 </button>
               </>
